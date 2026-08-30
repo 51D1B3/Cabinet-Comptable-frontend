@@ -1,0 +1,268 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Fraunces", Georgia, serif;
+  --font-sans: "Source Sans 3", "Segoe UI", sans-serif;
+  --color-ink: #0b1f33;
+  --color-ink-soft: #1c3349;
+  --color-sea: #0f6b6b;
+  --color-sea-dark: #0a4f4f;
+  --color-sand: #f3efe6;
+  --color-mist: #e8eef2;
+  --color-line: #d5dde5;
+  --color-accent: #c45c26;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    @apply m-0 min-h-screen bg-sand font-sans text-ink antialiased;
+    background-image:
+      radial-gradient(ellipse 80% 50% at 100% -10%, rgba(15, 107, 107, 0.10), transparent),
+      radial-gradient(ellipse 60% 40% at 0% 100%, rgba(196, 92, 38, 0.07), transparent);
+    /* Empêche le scroll horizontal sur mobile */
+    overflow-x: hidden;
+  }
+
+  #root {
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  a {
+    @apply text-inherit no-underline;
+  }
+
+  /* Images responsives par défaut */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Meilleure lisibilité sur petits écrans */
+  p, li {
+    line-height: 1.65;
+  }
+}
+
+/* ============================================================
+   RESPONSIVE — breakpoints utilitaires
+   ============================================================
+   xs  : < 480px   (vieux smartphones)
+   sm  : 480-639px (smartphones récents)
+   md  : 640-767px (grands smartphones / petites tablettes)
+   lg  : 768-1023px (tablettes)
+   xl  : 1024-1279px (petits PC)
+   2xl : ≥ 1280px  (grands écrans)
+   ============================================================ */
+
+/* Textes adaptatifs */
+@media (max-width: 480px) {
+  h1 { font-size: clamp(1.6rem, 7vw, 2.5rem) !important; }
+  h2 { font-size: clamp(1.3rem, 5vw, 2rem) !important; }
+  h3 { font-size: clamp(1.1rem, 4vw, 1.5rem) !important; }
+  p, li { font-size: 0.9rem; }
+}
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-5px); }
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.6; }
+}
+
+.animate-fade-in   { animation: fadeIn 0.5s ease-out both; }
+.animate-slide-up  { animation: slideUp 0.5s ease-out both; }
+.animate-slide-down{ animation: slideDown 0.4s ease-out both; }
+.animate-scale-in  { animation: scaleIn 0.4s ease-out both; }
+.animate-float     { animation: float 3s ease-in-out infinite; }
+
+.animation-delay-100 { animation-delay: 100ms; }
+.animation-delay-200 { animation-delay: 200ms; }
+.animation-delay-300 { animation-delay: 300ms; }
+.animation-delay-400 { animation-delay: 400ms; }
+.animation-delay-500 { animation-delay: 500ms; }
+
+/* Désactiver les animations complexes sur mobile pour les perfs */
+@media (max-width: 640px) {
+  .animate-slide-up  { animation-duration: 0.35s; }
+  .animation-delay-100,
+  .animation-delay-200,
+  .animation-delay-300,
+  .animation-delay-400,
+  .animation-delay-500 { animation-delay: 0ms; }
+}
+
+/* ============================================================
+   CARD HOVER
+   ============================================================ */
+
+.card-hover {
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px -8px rgba(11, 31, 51, 0.13);
+  border-color: rgba(15, 107, 107, 0.3);
+}
+
+/* Pas d'élévation sur mobile (pas de hover réel) */
+@media (hover: none) {
+  .card-hover:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+/* ============================================================
+   WHATSAPP BTN PULSE
+   ============================================================ */
+
+.whatsapp-btn {
+  position: relative;
+}
+
+.whatsapp-btn::before {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  border-radius: 9999px;
+  background: rgba(16, 185, 129, 0.3);
+  animation: pulse-soft 2.5s ease-in-out infinite;
+  z-index: -1;
+}
+
+/* ============================================================
+   LAYOUT PUBLIC — nav responsivité
+   ============================================================ */
+
+/* Header logo visible sur tous les écrans */
+@media (max-width: 1023px) {
+  .nav-logo-text { display: none; }
+}
+
+/* Sections hero — hauteur adaptative */
+.hero-section {
+  min-height: clamp(280px, 50vw, 600px);
+}
+
+/* Grilles adaptatives */
+.grid-auto-fill-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+  gap: 1.25rem;
+}
+
+/* ============================================================
+   ADMIN LAYOUT — sidebar responsivité
+   ============================================================ */
+
+/* Sur tablette (768-1023px) : sidebar en overlay */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .admin-sidebar-overlay {
+    width: 280px;
+  }
+}
+
+/* ============================================================
+   FORMULAIRES — inputs tactiles
+   ============================================================ */
+
+@media (max-width: 768px) {
+  input, select, textarea {
+    font-size: 16px !important; /* Empêche le zoom auto sur iOS */
+  }
+
+  button, [role="button"] {
+    min-height: 44px; /* Zone de tap minimum recommandée */
+  }
+}
+
+/* ============================================================
+   TABLES / LISTES ADMIN — scroll horizontal sur mobile
+   ============================================================ */
+
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ============================================================
+   IMAGES RESPONSIVE
+   ============================================================ */
+
+.img-responsive {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* Section split photo/texte : empilage sur mobile */
+@media (max-width: 767px) {
+  .split-section {
+    flex-direction: column !important;
+    grid-template-columns: 1fr !important;
+  }
+
+  .split-image {
+    height: 240px !important;
+    min-height: unset !important;
+  }
+}
+
+/* ============================================================
+   NOTIFICATIONS — liste scrollable sur mobile
+   ============================================================ */
+
+@media (max-width: 1023px) {
+  .notif-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .notif-list {
+    max-height: 45vh !important;
+  }
+}
+
+/* ============================================================
+   FOCUS VISIBLE — accessibilité
+   ============================================================ */
+
+:focus-visible {
+  outline: 2px solid #0f6b6b;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
