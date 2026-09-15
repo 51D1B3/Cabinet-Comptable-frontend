@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../../services/api';
 import { Button, Spinner } from '../../components/ui';
-import { getSafeImageUrl } from '../../utils/helpers';
+import { formatDate, getSafeImageUrl } from '../../utils/helpers';
 import { ArrowRight, BookOpen, Calendar, CheckCircle2, Clock, GraduationCap, MapPin, MessageCircle, Star, X } from 'lucide-react';
 
 /* ── Modal inscription ── */
