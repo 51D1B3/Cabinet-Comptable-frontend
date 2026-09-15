@@ -52,7 +52,7 @@ export default function AdminLayout() {
       api.get('/admin/dashboard')
         .then((r) => {
           const d = r.data.data;
-          setUnreadCount((d.newRequests || 0) + (d.newMessages || 0));
+          setUnreadCount(d.newMessages || 0);
         }).catch(() => {});
     fetch();
     const t = window.setInterval(fetch, 5000);

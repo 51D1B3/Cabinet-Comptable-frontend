@@ -411,6 +411,9 @@ export default function Formations() {
                   <h2 className="mt-3 font-display text-xl text-ink sm:text-2xl">{formation.title}</h2>
                   <p className="mt-2 flex-1 text-sm leading-relaxed text-ink-soft/80">{formation.summary}</p>
                   <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1.5 text-xs text-ink-soft/70">
+                    {(formation.publishedAt || formation.createdAt) && (
+                      <span>Publié le {formatDate(formation.publishedAt || formation.createdAt)}</span>
+                    )}
                     {formation.duration && (
                       <span className="inline-flex items-center gap-1"><Clock size={12} /> {formation.duration}</span>
                     )}

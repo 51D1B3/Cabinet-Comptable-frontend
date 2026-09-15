@@ -38,7 +38,7 @@ export default function Login() {
     <div className="mx-auto flex min-h-[70vh] max-w-md items-center px-4 py-12">
       <Card className="w-full animate-slide-up">
         <div className="flex items-center gap-3 mb-6">
-          <img src="/logo.png" alt="Logo" className="h-10 w-10 rounded-lg object-contain" />
+          <img src="/logos.png" alt="Logo" className="h-10 w-10 rounded-lg object-contain" />
           <div>
             <h1 className="font-display text-2xl text-ink">Connexion</h1>
             <p className="text-xs text-ink-soft/70">Accédez à votre espace sécurisé.</p>

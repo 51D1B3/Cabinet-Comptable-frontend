@@ -1,45 +1,45 @@
+import { lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import PublicLayout from './layouts/PublicLayout';
 import AdminLayout from './layouts/AdminLayout';
 
-import Home from './pages/public/Home';
-import About from './pages/public/About';
-import Services from './pages/public/Services';
-import ServiceDetail from './pages/public/ServiceDetail';
-import News from './pages/public/News';
-import NewsDetail from './pages/public/NewsDetail';
-import Contact from './pages/public/Contact';
-import Demande from './pages/public/Demande';
-import Legal from './pages/public/Legal';
-import Privacy from './pages/public/Privacy';
-import Formations from './pages/public/Formations';
-import AcademicSupport from './pages/public/AcademicSupport';
+const Home = lazy(() => import('./pages/public/Home'));
+const About = lazy(() => import('./pages/public/About'));
+const Services = lazy(() => import('./pages/public/Services'));
+const ServiceDetail = lazy(() => import('./pages/public/ServiceDetail'));
+const News = lazy(() => import('./pages/public/News'));
+const NewsDetail = lazy(() => import('./pages/public/NewsDetail'));
+const Contact = lazy(() => import('./pages/public/Contact'));
+const Demande = lazy(() => import('./pages/public/Demande'));
+const Legal = lazy(() => import('./pages/public/Legal'));
+const Privacy = lazy(() => import('./pages/public/Privacy'));
+const Formations = lazy(() => import('./pages/public/Formations'));
+const AcademicSupport = lazy(() => import('./pages/public/AcademicSupport'));
+const Login = lazy(() => import('./pages/auth/Login'));
+const ForgotPassword = lazy(() => import('./pages/auth/ForgotPassword'));
+const AdminDashboard = lazy(() => import('./pages/admin/Dashboard'));
+const AdminPages = lazy(() => import('./pages/admin/Pages').then((module) => ({
+  default: ({ name }) => {
+    const Component = module[name];
+    return Component ? <Component /> : null;
+  },
+})));
 
-import Login from './pages/auth/Login';
-import ForgotPassword from './pages/auth/ForgotPassword';
+function AdminPage({ name }) {
+  return <AdminPages name={name} />;
+}
 
-
-import AdminDashboard from './pages/admin/Dashboard';
-import {
-  Staff,
-  Dossiers as AdminDossiers,
-  Documents as AdminDocuments,
-  Tasks as AdminTasks,
-  Quotes as AdminQuotes,
-  Reports as AdminReports,
-  Articles,
-  Notifications as AdminNotifications,
-  Stats,
-  Settings,
-  ActivityLog,
-} from './pages/admin/Pages';
+function PageLoader() {
+  return <div className="min-h-[40vh]" aria-label="Chargement" />;
+}
 
 export default function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
-        <Routes>
+        <Suspense fallback={<PageLoader />}>
+          <Routes>
           {/* Zone publique */}
           <Route element={<PublicLayout />}>
             <Route index element={<Home />} />
@@ -62,19 +62,20 @@ export default function App() {
           {/* Panel admin */}
           <Route path="admin" element={<AdminLayout />}>
             <Route index element={<AdminDashboard />} />
-            <Route path="personnel" element={<Staff />} />
-            <Route path="dossiers" element={<AdminDossiers />} />
-            <Route path="documents" element={<AdminDocuments />} />
-            <Route path="taches" element={<AdminTasks />} />
-            <Route path="devis" element={<AdminQuotes />} />
-            <Route path="rapports" element={<AdminReports />} />
-            <Route path="actualites" element={<Articles />} />
-            <Route path="notifications" element={<AdminNotifications />} />
-            <Route path="statistiques" element={<Stats />} />
-            <Route path="parametres" element={<Settings />} />
-            <Route path="journal" element={<ActivityLog />} />
+            <Route path="personnel" element={<AdminPage name="Staff" />} />
+            <Route path="dossiers" element={<AdminPage name="Dossiers" />} />
+            <Route path="documents" element={<AdminPage name="Documents" />} />
+            <Route path="taches" element={<AdminPage name="Tasks" />} />
+            <Route path="devis" element={<AdminPage name="Quotes" />} />
+            <Route path="rapports" element={<AdminPage name="Reports" />} />
+            <Route path="actualites" element={<AdminPage name="Articles" />} />
+            <Route path="notifications" element={<AdminPage name="Notifications" />} />
+            <Route path="statistiques" element={<AdminPage name="Stats" />} />
+            <Route path="parametres" element={<AdminPage name="Settings" />} />
+            <Route path="journal" element={<AdminPage name="ActivityLog" />} />
           </Route>
         </Routes>
+        </Suspense>
       </BrowserRouter>
     </AuthProvider>
   );

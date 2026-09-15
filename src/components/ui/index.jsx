@@ -187,7 +187,7 @@ export function ImageViewer({ src, alt = '', className = '' }) {
         }}
         aria-label="Agrandir l'image"
       >
-        <img src={src} alt={alt} onError={() => setFailed(true)} className="h-full w-full object-cover transition duration-300 group-hover:scale-105" />
+        <img src={src} alt={alt} loading="lazy" decoding="async" onError={() => setFailed(true)} className="h-full w-full object-cover transition duration-300 group-hover:scale-105" />
         <span className="absolute right-3 top-3 rounded-full bg-ink/75 p-2 text-white opacity-0 transition group-hover:opacity-100">
           <Maximize2 size={16} aria-hidden="true" />
         </span>
@@ -195,7 +195,7 @@ export function ImageViewer({ src, alt = '', className = '' }) {
       {open && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-ink/90 p-4" role="dialog" aria-modal="true" aria-label="Image agrandie" onClick={() => setOpen(false)}>
           <div className="relative flex max-h-full max-w-6xl items-center justify-center" onClick={(event) => event.stopPropagation()}>
-            <img src={src} alt={alt} className="max-h-[85vh] max-w-full object-contain" style={{ transform: `scale(${zoom})` }} />
+            <img src={src} alt={alt} decoding="async" className="max-h-[85vh] max-w-full object-contain" style={{ transform: `scale(${zoom})` }} />
             <div className="absolute right-3 top-3 flex gap-2 rounded-md bg-ink/80 p-2 text-white">
               <button type="button" onClick={() => setZoom((value) => Math.min(value + 0.25, 3))} aria-label="Zoom avant"><ZoomIn size={18} /></button>
               <button type="button" onClick={() => setZoom((value) => Math.max(value - 0.25, 0.5))} aria-label="Zoom arrière"><ZoomOut size={18} /></button>

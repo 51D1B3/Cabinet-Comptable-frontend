@@ -560,6 +560,7 @@ export function Articles() {
   const load = () => api.get('/articles').then((r) => setItems(r.data.data));
 
   const removeArticle = async (id) => {
+    setDeleteTarget(null);
     try {
       await api.delete(`/admin/articles/${id}`);
       await load();
@@ -568,8 +569,6 @@ export function Articles() {
     } catch {
       setConfirmation('Erreur lors de la suppression.');
       window.setTimeout(() => setConfirmation(''), 4000);
-    } finally {
-      setDeleteTarget(null);
     }
   };
 
@@ -804,8 +803,9 @@ export function Notifications() {
   /* -- Suppression depuis la BDD -- */
   const deleteItem = async () => {
     if (!deleteConfirm) return;
+    const { type, id } = deleteConfirm;
+    setDeleteConfirm(null);
     try {
-      const { type, id } = deleteConfirm;
       if (type === 'request') await api.delete(`/admin/requests/${id}`);
       else if (type === 'contact') await api.delete(`/admin/contact-messages/${id}`);
       else if (type === 'notif') await api.delete(`/notifications/${id}`);
@@ -819,8 +819,9 @@ export function Notifications() {
       markRead(`${type === 'notif' ? 'notif_' : type === 'request' ? 'req_' : type === 'contact' ? 'contact_' : 'conv_'}${id}`);
       setConfirmation('Supprimé.');
       window.setTimeout(() => setConfirmation(''), 3000);
-    } finally {
-      setDeleteConfirm(null);
+    } catch {
+      setConfirmation('La suppression a échoué.');
+      window.setTimeout(() => setConfirmation(''), 3000);
     }
   };
 
@@ -926,7 +927,7 @@ export function Notifications() {
           )}
           {allItems.map((item) => {
             const unread = isUnread(item);
-            const badgeCount = unread ? (item._type === 'conversation' ? (item.raw.unreadCount || 1) : 1) : 0;
+            const badgeCount = unread && item._type === 'conversation' ? (item.raw.unreadCount || 1) : 0;
             const isActive = selected?.item?.id === item.raw?.id;
             return (
               <div

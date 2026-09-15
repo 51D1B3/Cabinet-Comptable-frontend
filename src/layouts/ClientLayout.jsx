@@ -78,7 +78,7 @@ export default function ClientLayout() {
       >
         <div className="flex items-center justify-between px-4 py-5">
           <div className="flex items-center gap-2">
-            <img src="/logo.png" alt="Logo" className="h-8 w-8 rounded-md object-contain bg-white/10 p-0.5" />
+            <img src="/logos.png" alt="Logo" className="h-8 w-8 rounded-md object-contain bg-white/10 p-0.5" />
             <div>
               <p className="font-display text-sm font-semibold">Espace client</p>
               <p className="mt-0.5 text-xs text-white/60">{user.firstName} {user.lastName}</p>
@@ -133,7 +133,7 @@ export default function ClientLayout() {
           <button type="button" onClick={() => setOpen(true)} aria-label="Menu">
             <Menu size={20} />
           </button>
-          <img src="/logo.png" alt="Logo" className="h-7 w-7 rounded object-contain" />
+          <img src="/logos.png" alt="Logo" className="h-7 w-7 rounded object-contain" />
           <p className="font-display text-base font-semibold">Cabinet Comptable</p>
         </div>
         <div className="mx-auto max-w-6xl px-4 py-6">

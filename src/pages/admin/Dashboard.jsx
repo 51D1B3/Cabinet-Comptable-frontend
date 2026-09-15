@@ -27,7 +27,7 @@ export default function AdminDashboard() {
   const kpis = [
     {
       label: 'Notifications',
-      value: (data?.newRequests ?? 0) + (data?.newMessages ?? 0),
+      value: data?.newMessages ?? 0,
       to: '/admin/notifications',
       icon: Bell,
       color: 'bg-red-50 text-red-600',

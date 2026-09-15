@@ -54,6 +54,8 @@ export default function Home() {
         <img
           src="/fond.png"
           alt="Cabinet Comptable"
+          fetchPriority="high"
+          decoding="async"
           className="absolute inset-0 h-full w-full object-cover object-center"
         />
         {/* Overlay léger */}

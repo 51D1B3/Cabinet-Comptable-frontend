@@ -36,7 +36,7 @@ export default function PublicLayout() {
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
 
           <Link to="/" className="flex shrink-0 items-center gap-2.5">
-            <img src="/logo.png" alt="Logo" className="h-9 w-9 rounded-lg object-contain" />
+            <img src="/logos.png" alt="Logo" className="h-9 w-9 rounded-lg object-contain" />
             <span className="font-display text-base font-bold text-ink sm:text-lg">
               {settings?.cabinetName || 'Cabinet Comptable'}
             </span>
@@ -131,7 +131,7 @@ export default function PublicLayout() {
         <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 sm:grid-cols-2 md:grid-cols-3">
           <div className="sm:col-span-2 md:col-span-1">
             <div className="flex items-center gap-2">
-              <img src="/logo.png" alt="Logo" className="h-8 w-8 rounded-md object-contain" />
+              <img src="/logos.png" alt="Logo" className="h-8 w-8 rounded-md object-contain" />
               <p className="font-display text-xl">{settings?.cabinetName || 'Cabinet Comptable'}</p>
             </div>
             <p className="mt-3 text-sm leading-relaxed text-white/75">

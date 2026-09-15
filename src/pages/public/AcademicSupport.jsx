@@ -307,10 +307,10 @@ export default function AcademicSupport() {
                 </Button>
               </a>
             </Card>
-            <Card className="card-hover border-sea bg-sea text-white">
-              <p className="text-xs font-semibold uppercase tracking-wide text-white/70">Formule Complète</p>
-              <h3 className="mt-2 font-display text-xl">Suivi intégral</h3>
-              <p className="mt-2 text-sm text-white/85">
+            <Card className="card-hover border-sea/30 bg-white text-ink">
+              <p className="text-xs font-semibold uppercase tracking-wide text-sea">Formule Complète</p>
+              <h3 className="mt-2 font-display text-xl text-ink">Suivi intégral</h3>
+              <p className="mt-2 text-sm text-black">
                 Du sujet à la soutenance. Accompagnement continu avec séances régulières, corrections et préparation complète. Recommandé pour les mémoires de fin de cycle.
               </p>
               <a href="#inscription">
